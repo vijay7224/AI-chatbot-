@@ -33,4 +33,4 @@ def chat():
         return jsonify({"reply": reply})
 
     except Exception as e:
-    return jsonify({"reply": str(e)}), 500
+        return jsonify({"reply": str(e)}), 500
