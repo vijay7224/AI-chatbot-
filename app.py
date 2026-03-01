@@ -33,5 +33,4 @@ def chat():
         return jsonify({"reply": reply})
 
     except Exception as e:
-        return jsonify({"reply": "कुछ तकनीकी समस्या आ गई है 😅"}), 500
-
+    return jsonify({"reply": str(e)}), 500
