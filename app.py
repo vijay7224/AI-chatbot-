@@ -6,31 +6,31 @@ import os
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(name)
 CORS(app)
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+return render_template("index.html")
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_message = request.json.get("message")
+user_message = request.json.get("message")
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "आप एक मददगार AI असिस्टेंट हैं। हमेशा हिंदी में उत्तर दें।"},
-                {"role": "user", "content": user_message}
-            ],
-            temperature=0.7
-        )
+try:  
+    response = client.chat.completions.create(  
+        model="gpt-3.5-turbo",  
+        messages=[  
+            {"role": "system", "content": "आप एक मददगार AI असिस्टेंट हैं। हमेशा हिंदी में उत्तर दें।"},  
+            {"role": "user", "content": user_message}  
+        ],  
+        temperature=0.7  
+    )  
 
-        reply = response.choices[0].message.content
-        return jsonify({"reply": reply})
+    reply = response.choices[0].message.content  
+    return jsonify({"reply": reply})  
 
-    except Exception as e:
-        return jsonify({"reply": str(e)}), 500
+except Exception as e:  
+    return jsonify({"reply": str(e)}), 500
